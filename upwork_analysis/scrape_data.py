@@ -1,22 +1,25 @@
 """This module implements `JobsScaper` class that aims to scrape Upwork job listings within certain parameters."""
 from __future__ import annotations
 
-from datetime import datetime, timedelta
-import threading
 import argparse
-import platform
-import random
 import ctypes
 import json
+import platform
+import random
+import threading
 import time
+from datetime import datetime, timedelta
 
-from seleniumbase.common.exceptions import (
-    NoSuchElementException as SBNoSuchElementException, WebDriverException as SBWebDriverException)
-from seleniumbase.undetected import Chrome
-from seleniumbase import Driver
-from selenium.common.exceptions import NoSuchElementException, TimeoutException, WebDriverException
 from bs4 import BeautifulSoup
 from bs4.element import Tag
+from selenium.common.exceptions import (NoSuchElementException,
+                                        TimeoutException, WebDriverException)
+from seleniumbase import Driver
+from seleniumbase.common.exceptions import \
+    NoSuchElementException as SBNoSuchElementException
+from seleniumbase.common.exceptions import \
+    WebDriverException as SBWebDriverException
+from seleniumbase.undetected import Chrome
 
 job_title_selector = ".air3-line-clamp > h2 > a"  # Text could be embedded in the anchor tag or set as text attribute.
 post_time_selector = ".job-tile-header div small span:nth-child(2)"
