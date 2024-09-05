@@ -216,13 +216,17 @@ def parse_one_job(driver: Chrome, job: Tag, index: int, fast: bool = False) -> d
     job_details: dict
         The job's details.
     """
+    job_link = job.select_one(job_title_selector)
+    job_url = "https://www.upwork.com" + job_link['href'] if job_link and 'href' in job_link.attrs else None
+    
     job_type = job.select_one(job_type_selector).text
     xp_level = job.select_one(experience_level_selector)
     time_estimate = job.select_one(time_estimate_selector)
     budget = job.select_one(budget_selector)
 
     job_details = {
-        "title": job.select_one(job_title_selector).text,
+        "title": job_link.text if job_link else None,
+        "job_url": job_url,
         "description": job.select_one(description_selector).text,
         "time": parse_time(job.select_one(post_time_selector).text),
         "skills": [skill.text for skill in job.select(job_skills_selector)],

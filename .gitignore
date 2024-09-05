@@ -12,3 +12,4 @@ downloaded_files/
 *.json
 
 .idea/
+.venv
